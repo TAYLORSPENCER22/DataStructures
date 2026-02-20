@@ -1,13 +1,4 @@
-//Write a function that accept a linked list of integers and reverses the
-//order of the linked list nodes. The function should have one parameter
-//which is a pointer to the head of the list. After the function is called, this
-//pointer will point to the head of a linked list that has the same nodes as
-//the original list, but in the reverse of the order they had in the original list.
-//Your function should not create or destroy any nodes. It should only rearrange nodes.
-//Write a test program to test your function.
-//..............................................................................
-//What you need to submit is:
-//
+
 //1- Pseudocode of your function. Can be added as a comment in your source code file.
 //1- Your program source code files (e.g., .cpp extension file).
 //2- Screenshots of your test program output (.png or jpeg file)
@@ -19,10 +10,60 @@
 //
 
 #include <iostream>
+using namespace std;
+
+//define node
+struct Node {
+    
+    int data;
+    Node* link;
+    Node(int val) : data(val), link(nullptr) {}
+};
+
+
+void reverse(Node* &head) {
+    
+    //declare 3 pointer variables for prev, current, next nodes
+    Node *prev, *curr, *next;
+    prev = nullptr;
+    curr = head;
+    next = nullptr;
+    
+    while (curr != nullptr){
+        
+        next = curr->link; //set next to the next node
+        curr->link = prev; //set the first node link to p
+        prev = curr; //increment first node to current
+        curr=next;   //increment current value
+    }
+    //set head to prev when the list is finish traversing
+    head = prev;
+}
+
+void printList(Node* head) {
+    while (head!= nullptr) {
+        cout << head->data << " ->";
+        head = head->link;
+    }
+    cout << "null" << endl;
+}
 
 int main() {
     
-    return 0;
+    Node* head = new Node(1);
+    head->link = new Node(2);
+    head->link->link= new Node(3);
+    head->link->link->link = new Node(4);
+    head->link->link->link->link = new Node(5);
+    
+    cout << "original linked list: ";
+    printList(head);
+    
+    reverse(head);
+    
+    cout << "Reversed: ";
+    printList(head);
+    
+  return 0;
 }
 
-//Pseudocode
